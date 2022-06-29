@@ -18,6 +18,7 @@ struct LogFormView: View {
     @State var amount: Double = 0
     @State var category: Category = .utilities
     @State var date: Date = Date()
+    @State var note: String = ""
     
     @Environment(\.presentationMode)
     var presentationMode
@@ -32,6 +33,7 @@ struct LogFormView: View {
             Form {
                 TextField("Name", text: $name)
                     .disableAutocorrection(true)
+                TextField("Notes", text: $note)
                 TextField("Amount", value: $amount, formatter: Utils.numberFormatter)
                     .keyboardType(.numbersAndPunctuation)
                     
@@ -73,6 +75,7 @@ struct LogFormView: View {
         log.category = self.category.rawValue
         log.amount = NSDecimalNumber(value: self.amount)
         log.date = self.date
+        log.note = self.note
         
         do {
             try context.save()
