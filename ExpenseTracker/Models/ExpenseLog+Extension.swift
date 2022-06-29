@@ -23,6 +23,10 @@ extension ExpenseLog {
         name ?? ""
     }
     
+    var noteText: String {
+        note ?? ""
+    }
+    
     var amountText: String {
         Utils.numberFormatter.string(from: NSNumber(value: amount?.doubleValue ?? 0)) ?? ""
     }
