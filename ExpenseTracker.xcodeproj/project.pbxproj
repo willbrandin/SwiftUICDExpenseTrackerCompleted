@@ -33,6 +33,7 @@
 		8BE1F57F244C0D720017E21D /* SelectSortOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1F57E244C0D720017E21D /* SelectSortOrderView.swift */; };
 		8BE1F581244C0DC80017E21D /* LogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1F580244C0DC80017E21D /* LogListView.swift */; };
 		8BE1F583244C0DD10017E21D /* LogFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE1F582244C0DD10017E21D /* LogFormView.swift */; };
+		D23EE9BB286DBBF50043945E /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23EE9BA286DBBF50043945E /* World.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		8BE1F57E244C0D720017E21D /* SelectSortOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSortOrderView.swift; sourceTree = "<group>"; };
 		8BE1F580244C0DC80017E21D /* LogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogListView.swift; sourceTree = "<group>"; };
 		8BE1F582244C0DD10017E21D /* LogFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFormView.swift; sourceTree = "<group>"; };
+		D23EE9BA286DBBF50043945E /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				8BE1F556244C05AB0017E21D /* ExpenseLog+Extension.swift */,
 				8BE1F559244C060B0017E21D /* Category.swift */,
 				8BE1F55E244C07BC0017E21D /* Sort.swift */,
+				D23EE9BA286DBBF50043945E /* World.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D23EE9BB286DBBF50043945E /* World.swift in Sources */,
 				8BE1F579244C0AB20017E21D /* PieChartView.swift in Sources */,
 				8BE1F557244C05AB0017E21D /* ExpenseLog+Extension.swift in Sources */,
 				8BE1F53F244C04E90017E21D /* AppDelegate.swift in Sources */,
