@@ -6,8 +6,8 @@
 //  Copyright © 2020 Alfian Losari. All rights reserved.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
 
 struct DashboardTabView: View {
     
@@ -16,49 +16,79 @@ struct DashboardTabView: View {
     
     @State var totalExpenses: Double?
     @State var categoriesSum: [CategorySum]?
+    @ObservedObject var currencyConvertor = CurrencyConvertor()
     
     var body: some View {
-        VStack(spacing: 0) {
-            VStack(spacing: 4) {
-                if totalExpenses != nil {
-                    Text("Total expenses")
-                        .font(.headline)
+        ZStack {
+            VStack(spacing: 0) {
+                VStack(spacing: 4) {
                     if totalExpenses != nil {
-                        Text(totalExpenses!.formattedCurrencyText)
-                            .font(.largeTitle)
+                        Text("Total expenses")
+                            .font(.headline)
+                        if totalExpenses != nil {
+                            Text((totalExpenses! * currencyConvertor.currencyMultiplier).formattedCurrencyText)
+                                .font(.largeTitle)
+                        }
                     }
-                }
-            }
-            
-            if categoriesSum != nil {
-                if totalExpenses != nil && totalExpenses! > 0 {
-                    PieChartView(
-                        data: categoriesSum!.map { ($0.sum, $0.category.color) },
-                        style: Styles.pieChartStyleOne,
-                        form: CGSize(width: 300, height: 240),
-                        dropShadow: false
-                    )
                 }
                 
-                Divider()
+                if categoriesSum != nil {
+                    if totalExpenses != nil && totalExpenses! > 0 {
+                        PieChartView(
+                            data: categoriesSum!.map { ($0.sum, $0.category.color) },
+                            style: Styles.pieChartStyleOne,
+                            form: CGSize(width: 300, height: 240),
+                            dropShadow: false
+                        )
+                    }
+                    
+                    Divider()
 
-                List {
-                    Text("Breakdown").font(.headline)
-                    ForEach(self.categoriesSum!) {
-                        CategoryRowView(category: $0.category, sum: $0.sum)
+                    List {
+                        Text("Breakdown").font(.headline)
+                        ForEach(self.categoriesSum!) {
+                            CategoryRowView(
+                                category: $0.category,
+                                sum: $0.sum * currencyConvertor.currencyMultiplier
+                            )
+                        }
                     }
                 }
+                
+                if totalExpenses == nil && categoriesSum == nil {
+                    Text("No expenses data\nPlease add your expenses from the logs tab")
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
+                        .padding(.horizontal)
+                }
             }
+            .padding(.top)
+            .onAppear(perform: fetchTotalSums)
             
-            if totalExpenses == nil && categoriesSum == nil {
-                Text("No expenses data\nPlease add your expenses from the logs tab")
-                    .multilineTextAlignment(.center)
-                    .font(.headline)
-                    .padding(.horizontal)
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    CurrencyButton(
+                        isLoading: currencyConvertor.isRequestInFlight,
+                        currency: $currencyConvertor.currency,
+                        onTapAction: toggleCurrencyRequest
+                    )
+                    .padding()
+                }
             }
         }
-        .padding(.top)
-        .onAppear(perform: fetchTotalSums)
+    }
+    
+    func toggleCurrencyRequest() {
+        let request = CurrencyConversionRequest(
+            toCurrency: currencyConvertor.currency == .usd ? .eur : .usd,
+            fromCurrency: currencyConvertor.currency
+        )
+        
+        self.currencyConvertor.convertCurrency(request)
     }
     
     func fetchTotalSums() {
