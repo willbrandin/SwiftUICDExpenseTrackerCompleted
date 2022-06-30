@@ -40,19 +40,9 @@ struct LogListView: View {
                 Button(action: {
                     self.logToEdit = log
                 }) {
-                    HStack(spacing: 16) {
-                        CategoryImageView(category: log.categoryEnum)
-
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(log.nameText).font(.headline)
-                            Text(log.dateText).font(.subheadline)
-                        }
-                        Spacer()
-                        Text(log.amountText).font(.headline)
-                    }
-                    .padding(.vertical, 4)
+                    LogRowItem(log: log)
+                        .padding(.vertical, 4)
                 }
-                
             }
                
             .onDelete(perform: onDelete)

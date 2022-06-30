@@ -17,8 +17,8 @@ struct ContentView: View {
                         Text("Dashboard")
                         Image(systemName: "chart.pie")
                     }
-            }
-            .tag(0)
+                }
+                .tag(0)
             
             LogsTabView()
                 .tabItem {
@@ -26,8 +26,17 @@ struct ContentView: View {
                         Text("Logs")
                         Image(systemName: "tray")
                     }
-            }
-            .tag(1)
+                }
+                .tag(1)
+            
+            MonthlySummaryTabView()
+                .tabItem {
+                    VStack {
+                        Text("Summary")
+                        Image(systemName: "calendar")
+                    }
+                }
+                .tag(2)
         }
     }
 }
