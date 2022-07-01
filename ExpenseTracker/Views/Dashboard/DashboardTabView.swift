@@ -26,8 +26,10 @@ struct DashboardTabView: View {
                         Text("Total expenses")
                             .font(.headline)
                         if totalExpenses != nil {
-                            Text((totalExpenses! * currencyConvertor.currencyMultiplier).formattedCurrencyText)
-                                .font(.largeTitle)
+                            Text(
+                                currencyConvertor.localizedCurrency(totalExpenses ?? 0)
+                            )
+                            .font(.largeTitle)
                         }
                     }
                 }
@@ -49,7 +51,7 @@ struct DashboardTabView: View {
                         ForEach(self.categoriesSum!) {
                             CategoryRowView(
                                 category: $0.category,
-                                sum: $0.sum * currencyConvertor.currencyMultiplier
+                                sum: currencyConvertor.localizedCurrency($0.sum)
                             )
                         }
                     }

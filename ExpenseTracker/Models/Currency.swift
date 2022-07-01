@@ -58,6 +58,14 @@ class CurrencyConvertor: ObservableObject {
     @Published var isRequestInFlight = false
 
     private var cancellable: AnyCancellable?
+    
+    func localizedCurrency(_ amount: Double) -> String {
+        let formatter = Utils.numberFormatter
+        let amount = amount * self.currencyMultiplier
+        formatter.currencyCode = self.currency.rawValue
+        
+        return formatter.string(from: NSNumber(value: amount)) ?? "0"
+    }
 
     func convertCurrency(_ request: CurrencyConversionRequest) {
         self.isRequestInFlight = true
